@@ -3,21 +3,27 @@ const MongoClient = require("mongodb").MongoClient;
 const bodyParser = require("body-parser");
 
 const app = express();
-
+app.set('viev engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}))
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
 
-app.post("/quotes", (req, res) => {
-  db.collection("quotes").save(req.body, (err, result) => {
+
+app.get('/', (req, res) => {
+  db.collection('todoes').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    // renders index.ejs
+    res.render('index.ejs', {todoes: result})
+  })
+})
+
+app.post("/todoes", (req, res) => {
+  db.collection("todoes").save(req.body, (err, result) => {
     if(err) return console.log(err)
     console.log("Saved to database")
     res.redirect("/")
   })
 })
 
-MongoClient.connect("mongodb://user:password@ds113938.mlab.com:13938/node-tutorial", (err, database) => {
+MongoClient.connect("mongodb://password@ds113938.mlab.com:13938/node-tutorial", (err, database) => {
   if(err) return console.log(err);
   db = database;
   app.listen(3000, () => {
