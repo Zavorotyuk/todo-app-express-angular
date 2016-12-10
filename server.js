@@ -1,32 +1,29 @@
-const express = require("express");
-const MongoClient = require("mongodb").MongoClient;
-const bodyParser = require("body-parser");
+var express = require('express');
+var path = require('path');
+var bodyParser = require('body-parser');
 
-const app = express();
-app.set('viev engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}))
+var index = require('./routes/index');
+var tasks = require('./routes/tasks');
 
+var port = 3000;
 
-app.get('/', (req, res) => {
-  db.collection('todoes').find().toArray((err, result) => {
-    if (err) return console.log(err)
-    // renders index.ejs
-    res.render('index.ejs', {todoes: result})
-  })
-})
+var app = express();
 
-app.post("/todoes", (req, res) => {
-  db.collection("todoes").save(req.body, (err, result) => {
-    if(err) return console.log(err)
-    console.log("Saved to database")
-    res.redirect("/")
-  })
-})
+//View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
-MongoClient.connect("mongodb://password@ds113938.mlab.com:13938/node-tutorial", (err, database) => {
-  if(err) return console.log(err);
-  db = database;
-  app.listen(3000, () => {
-    console.log("Listen on 3000");
-  })
-})
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'client')));
+
+// Body Parser MW
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use('/', index);
+app.use('/api', tasks);
+
+app.listen(port, function(){
+    console.log('Server started on port '+port);
+});
