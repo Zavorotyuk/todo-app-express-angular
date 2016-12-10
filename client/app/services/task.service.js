@@ -8,23 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
-var app_component_1 = require("./app.component");
-var tasks_component_1 = require("./components/tasks/tasks.component");
-var AppModule = (function () {
-    function AppModule() {
+require("rxjs/add/operator/map");
+;
+var TaskService = (function () {
+    function TaskService(http) {
+        this.http = http;
+        console.log("Task Service initialized");
     }
-    return AppModule;
+    return TaskService;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule],
-        declarations: [app_component_1.AppComponent, tasks_component_1.TasksComponent],
-        bootstrap: [app_component_1.AppComponent]
-    }),
-    __metadata("design:paramtypes", [])
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+TaskService = __decorate([
+    __param(0, core_1.Inject(http_1.Http)),
+    __metadata("design:paramtypes", [http_1.Http])
+], TaskService);
+exports.TaskService = TaskService;
+//# sourceMappingURL=task.service.js.map

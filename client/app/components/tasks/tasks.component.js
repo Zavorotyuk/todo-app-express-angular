@@ -9,8 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var task_service_1 = require("../../services/task.service");
 var TasksComponent = (function () {
-    function TasksComponent() {
+    function TasksComponent(TaskService) {
+        this.TaskService = TaskService;
     }
     return TasksComponent;
 }());
@@ -20,7 +22,7 @@ TasksComponent = __decorate([
         selector: 'tasks',
         templateUrl: 'tasks.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [task_service_1.TaskService])
 ], TasksComponent);
 exports.TasksComponent = TasksComponent;
 //# sourceMappingURL=tasks.component.js.map
