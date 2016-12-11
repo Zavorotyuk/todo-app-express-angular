@@ -20,6 +20,9 @@ var TaskService = (function () {
         this.http = http;
         console.log("Task Service initialized");
     }
+    TaskService.prototype.getTasks = function () {
+        return this.http.get('http://localhost:3000/api/tasks').map(function (res) { return res.json(); });
+    };
     return TaskService;
 }());
 TaskService = __decorate([

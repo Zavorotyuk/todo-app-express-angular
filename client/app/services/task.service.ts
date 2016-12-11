@@ -8,4 +8,8 @@ export class TaskService {
   constructor(@Inject(Http) private http:Http) {
     console.log("Task Service initialized");
   }
+
+  getTasks() {
+    return this.http.get('http://localhost:3000/api/tasks').map(res => res.json());
+  }
 }

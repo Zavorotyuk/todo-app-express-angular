@@ -1,19 +1,21 @@
-<form class="well">
+<form class="well" (submit)="addTask($event)">
   <div class="form-grop">
-    <input type="text" class="form-control" placeholder="add task">
+    <input type="text" [(NgModule)]="title" name="title" class="form-control" placeholder="add task">
 
   </div>
 
 </form>
 
 <div class="class-list">
-  <div class="col-md-1">
-    <input type="checkbox">
-  </div>
-  <div class="col-md-7">
-    Some Task
-  </div>
-  <div class="col-md-4">
-    <input type="button" class="btn btn-danger" value="Delete">
+  <div *ngFor="let task of tasks">
+    <div class="col-md-1">
+      <input type="checkbox">
+    </div>
+    <div class="col-md-7">
+      {{task.title}}
+    </div>
+    <div class="col-md-4">
+      <input type="button" class="btn btn-danger" value="Delete">
+    </div>
   </div>
 </div>
